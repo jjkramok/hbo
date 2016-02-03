@@ -53,13 +53,30 @@ public class Opgave3 {
 
     //unfinished
     public static void sideTriangle(int width) {
-        for (int i = 0; i < width * 2 - 1; i++) {
-            for (int j = 0; j < width - (2*i - width) - 1; j++) {
+        int row = 1;
+        while (row < width) {
+            for (int i = 0; i < row; i++) {
                 System.out.print("*");
             }
             System.out.println("");
+            row++;
         }
-        System.out.println("");
+        if (row == width) {
+            //We are now in the middle row, print width amount of stars
+            for (int i = 0; i < width; i++) {
+                System.out.print("*");
+            }
+            System.out.println("");
+            row++;
+        }
+        int fromMid = 1;
+        while (row > width && fromMid < width) {
+            for (int i = 0; i < width - fromMid; i++) {
+                System.out.print("*");
+            }
+            System.out.println("");
+            fromMid++;
+        }
     }
 
     // Maakt een rechthoek, columns is het aantal sterretjes per regel
