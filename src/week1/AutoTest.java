@@ -25,5 +25,7 @@ public class AutoTest {
 
         System.out.println(auto2);
 
+        auto1.voerOp(60);
+
     }
 }

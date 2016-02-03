@@ -20,8 +20,10 @@ public class Auto {
         this.pk = pk;
     }
 
-    public static void main(String[] args) {
-
+    public void voerOp(int pk) {
+        System.out.println(merk + " opvoeren met " + pk + " pk");
+        this.setPk(pk + this.getPk()); // hier worden de pk's aangepast
+        System.out.println("resultaat: " + this.toString());
     }
 
     public String toString() {
