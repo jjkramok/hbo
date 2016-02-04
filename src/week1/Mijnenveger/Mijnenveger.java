@@ -1,5 +1,6 @@
 package week1.Mijnenveger;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -9,47 +10,74 @@ public class Mijnenveger {
 
     public static final int SIZE = 9;
 
-    private int[][] mijnenveld = new int[SIZE][SIZE];
+    public static final int BOMB = 9;
 
-    public Mijnenveger(int aantalMijnen) {
+    private ArrayList<ArrayList<Integer>> mijnenveld = new ArrayList<ArrayList<Integer>>();
+
+    public Mijnenveger(int aantalMijnen, int rows, int columns) {
+        //First create a board with dimensions of rows by columns
+        for (int i = 0; i < rows; i++) {
+            //Fill the rows with columns
+            mijnenveld.add(new ArrayList<Integer>());
+        }
+        //Lets loop over all columns, and add the number of fields specified.
+        for (ArrayList<Integer> column : mijnenveld) {
+            //Fill the columns with zero's
+            for (int i = 0; i < columns; i++) {
+                column.add(0);
+            }
+        }
+
+        //Now that the board is created, lets fill it with the desired amount of bombs.
         Random rnd = new Random();
         int row;
         int column;
-        row = rnd.nextInt(10);
-        column = rnd.nextInt(10);
+        //As long as there are mines to distribute, continue placing them
+        while (aantalMijnen != 0) {
+            //Generate a random position in the grid for a bomb.
+            row = rnd.nextInt(mijnenveld.size());
+            column = rnd.nextInt(mijnenveld.get(0).size());
+            //Is there already a bomb here?
+            if (mijnenveld.get(row).get(column) != BOMB) {
+                //No? place a bomb, and lessen the amount of bombs left to distribute
+                mijnenveld.get(row).set(column, BOMB);
+                aantalMijnen--;
+            }
+        }
 
+        //To finish up the board needs to adapt to the bombs placed
+        genereerVeld();
+
+    }
+
+    public void genereerVeld() {
+        //Generates the rest of the board based on the 9's
         for (int i = 0; i < SIZE; i++) {
             //Now we are looping over all rows
             for (int j = 0; j < SIZE; j++) {
                 //Now we are looping over all fields in this row
-                //TODO lets fill the board with 0's for now
-                mijnenveld[i][j] = 0;
             }
         }
-
-        //genereerVeld();
-    }
-
-    public void genereerVeld() {
-        //generates the rest of the fields based on the 9's
     }
 
     public static void main(String[] args) {
-        Mijnenveger mn = new Mijnenveger(0);
+        Mijnenveger mn = new Mijnenveger(3, 5 ,3);
         System.out.println(mn.toString());
+        System.out.println("test");
+        System.out.println(mn.getMijnenveld().toString());
     }
 
-    public int[][] getMijnenveld() {
+    public ArrayList<ArrayList<Integer>> getMijnenveld() {
         return mijnenveld;
     }
 
-    public void setMijnenveld(int[][] mijnenveld) {
+    public void setMijnenveld(ArrayList<ArrayList<Integer>> mijnenveld) {
         this.mijnenveld = mijnenveld;
     }
 
     public String toString() {
         String board = "";
-        for (int[] row : mijnenveld) {
+        for (ArrayList<Integer> row : mijnenveld) {
             //Now we are looping over all rows
             for (int field : row) {
                 //Now we are looping over all fields in this row
