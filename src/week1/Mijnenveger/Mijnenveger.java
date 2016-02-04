@@ -51,11 +51,22 @@ public class Mijnenveger {
     }
 
     public void genereerVeld() {
+        int amountOfBombs;
         //Generates the rest of the board based on the 9's
-        for (int i = 0; i < SIZE; i++) {
+        for (int i = 0; i < mijnenveld.size(); i++) {
             //Now we are looping over all rows
-            for (int j = 0; j < SIZE; j++) {
+            for (int j = 0; j < mijnenveld.get(0).size(); j++) {
+                //TODO functionaliteit van genereerVeld afmaken
+
                 //Now we are looping over all fields in this row
+                //For this field we need to calculate the amount of Bombs around it, and insert that in this field.
+                amountOfBombs = 0;
+                if (i != 0) {
+                    //This is the not the first row, so we can check one row before this field for bombs
+                    mijnenveld.get(i - 1);
+                }
+
+                mijnenveld.get(i).set(j, amountOfBombs);
             }
         }
     }
